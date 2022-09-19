@@ -8,21 +8,20 @@
   let markdownReadme = null
 
   const getUserAvatar = () => {
-    const user = 'gnatson'
-    const limit = 5
     const url = `https://api.github.com/users/${user}`
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        userData = {}
-        userData.name = data.name
-        userData.avatar = data.avatar_url
+        userData = {
+          name: data.name,
+          avatar: data.avatar_url,
+          login: data.login,
+          bio: data.bio,
+          type: data.type,
+          publicReposCount: data.public_repos,
+        }
 
-        console.log(data.starred_url)
-        console.log(+data.public_repos)
-        console.log('@' + data.login)
-        console.log(data.bio)
-        console.log(data.type)
+        // console.log(data.starred_url)
       })
   }
 
@@ -113,6 +112,14 @@
 <div id="user">
   {#if userData}
     <div id="name">{userData.name}</div>
+    <div id="login">@{userData.login}</div>
+    <div id="bio">{userData.bio || '📝 No bio.'}</div>
+    <div id="type">{userData.type}</div>
+    <div id="reposNumber">
+      Has {userData.publicReposCount}
+      <b>public</b>
+      repositories.
+    </div>
     <img src={userData.avatar} alt={userData.name} />
   {/if}
 </div>

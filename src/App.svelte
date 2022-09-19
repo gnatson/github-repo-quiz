@@ -1,4 +1,5 @@
-const getUserRepos = () => {
+<script>
+  const getUserRepos = () => {
     const user = 'gnatson'
     const url = `https://api.github.com/users/${user}/repos?per_page=100`
     fetch(url)
@@ -39,3 +40,6 @@ const getMarkdownReadme = () => {
 
 getUserRepos()
 // getMarkdownReadme()
+</script>
+
+<input type="text">

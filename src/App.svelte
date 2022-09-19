@@ -1,10 +1,21 @@
 <script>
   import MarkdownParse from './MarkdownParse.svelte'
 
+  const users = ['gnatson']
+  // const organizations
+  // const repos = {'vuejs': 'core', 'gnatson': 'gnatson'}
+  const sampleRepos = [
+    {
+      user: 'vuejs',
+      repo: 'core',
+    },
+    { user: 'gnatson', repo: 'gnatson' },
+  ]
+
   let userData = null
 
-  let user = 'vuejs'
-  let repo = 'core'
+  let user = 'gnatson'
+  let repo = 'gnatson'
   let markdownReadme = null
 
   const getUserAvatar = () => {
@@ -60,8 +71,6 @@
   }
 
   const getMarkdownReadme = () => {
-    const user = 'gnatson'
-    const repo = 'awesome-github-profile-readme '
     const url = `https://raw.githubusercontent.com/${user}/${repo}/master/README.md`
     fetch(url)
       .then((response) => response.text())
@@ -126,6 +135,15 @@
 
 <input type="text" bind:value={user} placeholder="user..." />
 <input type="text" bind:value={repo} placeholder="repo..." />
+
+<br />
+<br />
+
+{#each sampleRepos as data}
+  <button on:click={() => ((user = data.user), (repo = data.repo))}>
+    {data.user}/{data.repo}
+  </button>
+{/each}
 
 <br />
 <br />

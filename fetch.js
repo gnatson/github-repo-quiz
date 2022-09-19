@@ -1,12 +1,14 @@
 const getUserRepos = () => {
     const user = 'gnatson'
-
-    fetch(`https://api.github.com/users/${user}/repos?per_page=100`)
+    const url = `https://api.github.com/users/${user}/repos?per_page=100`
+    fetch(url)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data[3].url);
-            console.log(data[3].name);
-            console.log(data[3].owner.login);
+            let d = data[1]
+            console.log(d.url);
+            console.log(d.name);
+            console.log(d.owner.login);
+            console.log(d.description);
             // console.log(data[3].owner.avatar_url);
 
             // console.log(data.map(repo => repo.name));
@@ -26,7 +28,10 @@ const getUserRepos = () => {
 
 
 const getMarkdownReadme = () => {
-    fetch(`https://raw.githubusercontent.com/facebook/react/master/README.md`)
+    const user = 'gnatson'
+    const repo = 'awesome-github-profile-readme '
+    const url = `https://raw.githubusercontent.com/${user}/${repo}/master/README.md`
+    fetch(url)
         .then((response) => response.text())
         .then((data) => console.log(data))
 }

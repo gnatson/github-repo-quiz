@@ -6,6 +6,7 @@
 <style>
   main {
     outline: 5px solid black;
+    transform: scale(.5) translateY(-50%);
   }
 </style>
 

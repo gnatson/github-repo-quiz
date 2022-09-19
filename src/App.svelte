@@ -1,4 +1,7 @@
 <script>
+  let user = 'vuejs'
+  let repo = 'core'
+
   const getUserRepos = () => {
     const user = 'gnatson'
     const limit = 5
@@ -58,8 +61,9 @@
         console.log(percent(+Object.values(data)[0], sum))
 
         Object.entries(data).forEach((entry) => {
-          data[entry[0]] = { value: entry[1] }
-          data[entry[0]].percent = +percent(data[entry[0]].value, sum)
+          // data[entry[0]] = { value: entry[1] }
+          // data[entry[0]].percent = +percent(data[entry[0]].value, sum)
+          data[entry[0]] = +percent(data[entry[0]], sum)
         })
 
         console.log(data)
@@ -69,7 +73,8 @@
   }
 </script>
 
-<input type="text" />
+<input type="text" bind:value={user} placeholder="user..." />
+<input type="text" bind:value={repo} placeholder="repo..." />
 
 <button on:click={() => (console.clear(), getUserRepos())}>
   get user repos
@@ -82,3 +87,7 @@
 <button on:click={() => (console.clear(), getRepoCodeLanguages())}>
   get repo code languages (%)
 </button>
+
+<h2>quiz</h2>
+<p>let's guess... this repo (repo.description) is written in (mostly)... TypeScript? True/False</p>
+<p>⭐ Score: 0</p>

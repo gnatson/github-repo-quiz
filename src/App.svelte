@@ -1,9 +1,30 @@
 <script>
-  import MarkdownParse from "./MarkdownParse.svelte";
+  import MarkdownParse from './MarkdownParse.svelte'
+
+  let userData = null
 
   let user = 'vuejs'
   let repo = 'core'
   let markdownReadme = null
+
+  const getUserAvatar = () => {
+    const user = 'gnatson'
+    const limit = 5
+    const url = `https://api.github.com/users/${user}`
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        userData = {}
+        userData.name = data.name
+        userData.avatar = data.avatar_url
+
+        console.log(data.starred_url)
+        console.log(+data.public_repos)
+        console.log('@' + data.login)
+        console.log(data.bio)
+        console.log(data.type)
+      })
+  }
 
   const getUserRepos = () => {
     const user = 'gnatson'
@@ -45,7 +66,7 @@
     const url = `https://raw.githubusercontent.com/${user}/${repo}/master/README.md`
     fetch(url)
       .then((response) => response.text())
-      .then((data) => markdownReadme = data)
+      .then((data) => (markdownReadme = data))
   }
 
   const getRepoCodeLanguages = () => {
@@ -76,11 +97,31 @@
   }
 </script>
 
+<style>
+  #user {
+    outline: 1px solid black;
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  #user > img {
+    width: 100px;
+    border-radius: 100%;
+  }
+</style>
+
+<div id="user">
+  {#if userData}
+    <div id="name">{userData.name}</div>
+    <img src={userData.avatar} alt={userData.name} />
+  {/if}
+</div>
+
 <input type="text" bind:value={user} placeholder="user..." />
 <input type="text" bind:value={repo} placeholder="repo..." />
 
-<br>
-<br>
+<br />
+<br />
 
 <button on:click={() => (console.clear(), getUserRepos())}>
   get user repos
@@ -94,11 +135,18 @@
   get repo code languages (%)
 </button>
 
+<button on:click={() => (console.clear(), getUserAvatar())}>
+  🤳 user avatar
+</button>
+
 <h2>quiz</h2>
-<p>let's guess... this repo (repo.description) is written in (mostly)... TypeScript? True/False</p>
+<p>
+  let's guess... this repo (repo.description) is written in (mostly)...
+  TypeScript? True/False
+</p>
 <p>⭐ Score: 0</p>
 
 <!-- svelte.swipe card right/left true/false (fact) -->
 
-<MarkdownParse markdownText={markdownReadme}/>
+<MarkdownParse markdownText={markdownReadme} />
 <!-- <MarkdownParse /> -->

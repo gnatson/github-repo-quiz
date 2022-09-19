@@ -54,8 +54,7 @@
         const sum = sumObjectValues(data)
 
         console.log(data)
-        const percent = (value, sum) =>
-          ((value / sum) * 100).toFixed(1)
+        const percent = (value, sum) => ((value / sum) * 100).toFixed(1)
         console.log(percent(+Object.values(data)[0], sum))
 
         Object.entries(data).forEach((entry) => {
@@ -64,6 +63,8 @@
         })
 
         console.log(data)
+
+        // is repo contains language >50%?? >30%? 90%? <quiz>
       })
   }
 </script>

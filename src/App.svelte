@@ -1,6 +1,9 @@
 <script>
+  import MarkdownParse from "./MarkdownParse.svelte";
+
   let user = 'vuejs'
   let repo = 'core'
+  let markdownReadme = null
 
   const getUserRepos = () => {
     const user = 'gnatson'
@@ -42,7 +45,7 @@
     const url = `https://raw.githubusercontent.com/${user}/${repo}/master/README.md`
     fetch(url)
       .then((response) => response.text())
-      .then((data) => console.log(data))
+      .then((data) => markdownReadme = data)
   }
 
   const getRepoCodeLanguages = () => {
@@ -96,3 +99,6 @@
 <p>⭐ Score: 0</p>
 
 <!-- svelte.swipe card right/left true/false (fact) -->
+
+<MarkdownParse markdownText={markdownReadme}/>
+<!-- <MarkdownParse /> -->

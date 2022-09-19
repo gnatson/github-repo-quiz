@@ -76,6 +76,9 @@
 <input type="text" bind:value={user} placeholder="user..." />
 <input type="text" bind:value={repo} placeholder="repo..." />
 
+<br>
+<br>
+
 <button on:click={() => (console.clear(), getUserRepos())}>
   get user repos
 </button>
@@ -91,3 +94,5 @@
 <h2>quiz</h2>
 <p>let's guess... this repo (repo.description) is written in (mostly)... TypeScript? True/False</p>
 <p>⭐ Score: 0</p>
+
+<!-- svelte.swipe card right/left true/false (fact) -->

@@ -2,8 +2,7 @@
   import MarkdownParse from './MarkdownParse.svelte'
 
   const users = ['gnatson']
-  // const organizations
-  // const repos = {'vuejs': 'core', 'gnatson': 'gnatson'}
+  
   const sampleRepos = [
     {
       user: 'vuejs',
@@ -132,7 +131,6 @@
 </style>
 
 <div id="user">
-  {#if userData}
     <div id="name">{userData.name}</div>
     <div id="login">@{userData.login}</div>
     <div id="bio">{userData.bio || '📝 No bio.'}</div>
@@ -143,7 +141,6 @@
       repositories.
     </div>
     <img src={userData.avatar} alt={userData.name} />
-  {/if}
 </div>
 
 <input type="text" bind:value={user} placeholder="user..." />

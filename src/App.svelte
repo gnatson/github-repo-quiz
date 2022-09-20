@@ -1,5 +1,6 @@
 <script>
   let user = 'gnatson'
+  let userData = {}
 
   let userRepos = {}
   let limitRepos = 3
@@ -9,13 +10,13 @@
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.clear()
-        console.log(data.name)
-        console.log(data.avatar_url)
-        console.log(data.login)
-        console.log(data.bio)
-        console.log(data.type)
-        console.log(data.public_repos)
+        userData = {}
+        userData.name = data.name
+        userData.avatar_url = data.avatar_url
+        userData.login = data.login
+        userData.bio = data.bio
+        userData.type = data.type
+        userData.public_repos = data.public_repos
       })
   }
 
@@ -58,6 +59,14 @@
 </script>
 
 <style>
+  #user {
+    outline: 1px solid black;
+  }
+
+  #user > img {
+    width: 100px;
+  }
+
   #userRepos {
     margin: 1rem;
     outline: 1px solid black;
@@ -71,6 +80,14 @@
 <button on:click={getUserRepos}>get user repos</button>
 <button on:click={getUser}>get user</button>
 <input type="range" min={0} max={10} bind:value={limitRepos} />
+
+{#if userData}
+  <div id="user">
+    <img src={userData.avatar_url} alt={userData.name} />
+    {userData.name} @{userData.login} {userData.bio} {userData.type}
+    {userData.public_repos}
+  </div>
+{/if}
 
 <div id="userRepos">
   {#each Object.keys(userRepos) as repo}

@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte'
+  import Swipe from './Swipe.svelte'
 
   let user = 'freecodecamp'
   let userData = null
@@ -197,3 +198,5 @@
     <p>{curRepoKeyID + 1}/{Object.keys(userRepos).length}</p>
   {/if}
 </div>
+
+<Swipe/>

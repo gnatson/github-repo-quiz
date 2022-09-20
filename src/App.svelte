@@ -1,8 +1,8 @@
 <script>
   let user = 'gnatson'
-  let userData = {}
+  let userData = null
 
-  let userRepos = {}
+  let userRepos = null
   let limitRepos = 3
 
   const getUser = () => {
@@ -89,16 +89,18 @@
   </div>
 {/if}
 
-<div id="userRepos">
-  {#each Object.keys(userRepos) as repo}
-    <div class="repo">
-      {userRepos[repo].homepage} {userRepos[repo].url}
-      <a href={userRepos[repo].html_url}>{userRepos[repo].full_name}</a>
-      {userRepos[repo].description} 🍴 {userRepos[repo].forks_count} ⭐ {userRepos[repo].stargazers_count}
-      👀 {userRepos[repo].watchers_count} {userRepos[repo].visibility}
-      {userRepos[repo].private ? '🔐' : '🔓'}
-      {formatBytes(userRepos[repo].size * 1024)} 📝{userRepos[repo].license ? userRepos[repo].license.name : ''}
-      {JSON.stringify(userRepos[repo].languages)}
-    </div>
-  {/each}
-</div>
+{#if userRepos}
+  <div id="userRepos">
+    {#each Object.keys(userRepos) as repo}
+      <div class="repo">
+        {userRepos[repo].homepage} {userRepos[repo].url}
+        <a href={userRepos[repo].html_url}>{userRepos[repo].full_name}</a>
+        {userRepos[repo].description} 🍴 {userRepos[repo].forks_count} ⭐ {userRepos[repo].stargazers_count}
+        👀 {userRepos[repo].watchers_count} {userRepos[repo].visibility}
+        {userRepos[repo].private ? '🔐' : '🔓'}
+        {formatBytes(userRepos[repo].size * 1024)} 📝{userRepos[repo].license ? userRepos[repo].license.name : ''}
+        {JSON.stringify(userRepos[repo].languages)}
+      </div>
+    {/each}
+  </div>
+{/if}

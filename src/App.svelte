@@ -1,11 +1,37 @@
 <script>
+  import { onMount } from 'svelte'
+  import { current_component } from 'svelte/internal'
+
   let user = 'gnatson'
   let userData = null
 
   // filter out repos without: description
   // filter out repos without: code languages
   let userRepos = null
-  let limitRepos = 3
+  let limitRepos = 10
+
+  let curRepoKeyID = 0
+  let score = 0
+
+  let curRepo = null
+
+  $: {
+    if (userRepos) {
+      curRepo = userRepos[Object.keys(userRepos)[curRepoKeyID]]
+    }
+  }
+
+  const nextQuestion = () => {
+    if (curRepoKeyID < Object.keys(userRepos).length - 1) {
+      curRepoKeyID++
+    }
+  }
+  const answerYes = () => {
+    nextQuestion()
+  }
+  const answerNo = () => {
+    nextQuestion()
+  }
 
   const getUser = () => {
     const url = `https://api.github.com/users/${user}`
@@ -75,6 +101,13 @@
 
     console.log(repoData.languages)
   }
+
+  const randomAvailableQuestion = () => {}
+
+  onMount(() => {
+    getUser()
+    getUserRepos()
+  })
 </script>
 
 <style>
@@ -84,6 +117,7 @@
 
   #user > img {
     width: 100px;
+    border-radius: 100%;
   }
 
   #userRepos {
@@ -96,21 +130,20 @@
   }
 </style>
 
-<button on:click={getUserRepos}>get user repos</button>
+<!-- <button on:click={getUserRepos}>get user repos</button>
 <button on:click={getUser}>get user</button>
-<button on:click={testQuiz}>⚡ test quiz</button>
+<button on:click={testQuiz}>⚡ test quiz</button> -->
+<!-- <input type="range" min={0} max={10} bind:value={limitRepos} /> -->
 
-<input type="range" min={0} max={10} bind:value={limitRepos} />
-
-{#if userData}
+<!-- {#if userData}
   <div id="user">
     <img src={userData.avatar_url} alt={userData.name} />
     {userData.name} @{userData.login} {userData.bio} {userData.type}
     {userData.public_repos}
   </div>
-{/if}
+{/if} -->
 
-{#if userRepos}
+<!-- {#if userRepos}
   <div id="userRepos">
     {#each Object.keys(userRepos) as repo}
       <div class="repo">
@@ -124,6 +157,28 @@
       </div>
     {/each}
   </div>
-{/if}
+{/if} -->
 
-<div id="quiz" />
+<div id="quiz">
+  <div id="user">
+    {#if userData}
+      <img src={userData.avatar_url} alt={userData.name} />
+      {userData.name}
+    {/if}
+  </div>
+  <div class="repo" />
+  <div class="question">
+    💪 Repo
+    <b>{curRepo ? curRepo.full_name : ''}</b>
+    is heavier than 1MB?
+  </div>
+  <div class="answer">
+    <button on:click={answerYes}>yes</button>
+    <button on:click={answerNo}>no</button>
+  </div>
+  <p>score: {score}</p>
+
+  {#if userRepos}
+    <p>{curRepoKeyID + 1}/{Object.keys(userRepos).length}</p>
+  {/if}
+</div>

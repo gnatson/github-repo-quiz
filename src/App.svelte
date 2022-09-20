@@ -1,19 +1,38 @@
 <script>
- const getUserRepos = () => {
+  let user = 'gnatson'
+
+  let userRepos = []
+  let limitRepos = 3
+
+  const getUser = () => {
+    const url = `https://api.github.com/users/${user}`
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.clear()
+        console.log(data.name)
+        console.log(data.avatar_url)
+        console.log(data.login)
+        console.log(data.bio)
+        console.log(data.type)
+        console.log(data.public_repos)
+      })
+  }
+
+  const getUserRepos = () => {
     const user = 'gnatson'
-    const limit = 3
+    const limit = limitRepos
     const url = `https://api.github.com/users/${user}/repos?per_page=${limit}`
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        userRepos = data
 
         console.clear()
 
-        
-        data.forEach(repo => {
-            console.log(repo.description)
-        });
-
+        data.forEach((repo) => {
+          console.log(repo.description)
+        })
 
         // let d = data[1]
         // console.clear()
@@ -32,7 +51,25 @@
         // console.log(d.topics)
       })
   }
-
 </script>
 
+<style>
+  #userRepos {
+    margin: 1rem;
+    outline: 1px solid black;
+  }
+
+  #userRepos > p {
+    outline: 1px solid black;
+  }
+</style>
+
 <button on:click={getUserRepos}>get user repos</button>
+<button on:click={getUser}>get user</button>
+<input type="range" min={0} max={10} bind:value={limitRepos} />
+
+<div id="userRepos">
+  {#each userRepos as repo}
+    <p>{repo.description}</p>
+  {/each}
+</div>

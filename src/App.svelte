@@ -56,6 +56,15 @@
 
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
   }
+
+  const testQuiz = () => {
+    const key = Object.keys(userRepos)[1]
+    const repoData = userRepos[key]
+
+    console.log('⭐ Repo has any stars?', repoData.stargazers_count > 0 ? 'Yes' : 'No')
+    
+    console.log('💪 Repo is heavier than 1MB?', repoData.size > 1024 ? 'Yes' : 'No');
+  }
 </script>
 
 <style>
@@ -79,6 +88,8 @@
 
 <button on:click={getUserRepos}>get user repos</button>
 <button on:click={getUser}>get user</button>
+<button on:click={testQuiz}>⚡ test quiz</button>
+
 <input type="range" min={0} max={10} bind:value={limitRepos} />
 
 {#if userData}
@@ -104,3 +115,7 @@
     {/each}
   </div>
 {/if}
+
+<div id="quiz">
+    
+</div>

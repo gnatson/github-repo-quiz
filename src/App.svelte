@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import { current_component } from 'svelte/internal'
 
-  let user = 'gnatson'
+  let user = 'freecodecamp'
   let userData = null
 
   // filter out repos without: description
@@ -58,7 +58,6 @@
   }
 
   const getUserRepos = () => {
-    const user = 'gnatson'
     const limit = limitRepos
     const url = `https://api.github.com/users/${user}/repos?per_page=${limit}`
     fetch(url)
@@ -186,6 +185,8 @@
           ⭐ Repo has any stars? {curRepo.stargazers_count > 0 ? 'Yes' : 'No'}
           <b>{curRepo.stargazers_count}</b>
         </p>
+        {#if curRepo.languages}{JSON.stringify(curRepo.languages)}{/if}
+        <p />
       </div>
     </div>
   {/if}

@@ -19,8 +19,8 @@
       })
   }
 
-  const getRepoCodeLanguages = (repoUrl) => {
-    const url = repoUrl + '/languages'
+  const getRepoCodeLanguages = (repoLanguagesUrl) => {
+    const url = repoLanguagesUrl
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -42,7 +42,7 @@
         data.forEach((repo) => {
           console.log(repo.description)
           console.log(repo.url)
-          getRepoCodeLanguages(repo.url)
+          getRepoCodeLanguages(repo.languages_url)
         })
 
         // let d = data[1]

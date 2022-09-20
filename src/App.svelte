@@ -45,19 +45,10 @@
           getRepoCodeLanguages(repo.languages_url)
         })
 
-        // let d = data[1]
-        // console.clear()
-        // console.log(d.description)
-        // console.log(d.languages)
-        // console.log('🍴' + d.forks_count)
-        // console.log('⭐' + d.stargazers_count)
-        // console.log('👀' + d.watchers_count)
         // console.log(d.homepage)
         // console.log(d.language)
         // console.log(d.languages_url)
-        // console.log(d.name)
         // console.log(d.private === false)
-        // console.log(d.visibility === 'public')
         // console.log(d.size)
         // console.log(d.topics)
       })
@@ -70,7 +61,7 @@
     outline: 1px solid black;
   }
 
-  #userRepos > p {
+  #userRepos > .repo {
     outline: 1px solid black;
   }
 </style>
@@ -81,6 +72,10 @@
 
 <div id="userRepos">
   {#each userRepos as repo}
-    <p>{repo.description}</p>
+    <div class="repo">
+      <p>{repo.name}</p>
+      {repo.description} 🍴 {repo.forks_count} ⭐ {repo.stargazers_count} 👀 {repo.watchers_count}
+      {repo.visibility} {repo.private ? '🔐' : '🔓'} {repo.size}
+    </div>
   {/each}
 </div>

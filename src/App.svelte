@@ -45,11 +45,6 @@
           getRepoCodeLanguages(repo.languages_url)
         })
 
-        // console.log(d.homepage)
-        // console.log(d.language)
-        // console.log(d.languages_url)
-        // console.log(d.private === false)
-        // console.log(d.size)
         // console.log(d.topics)
       })
   }
@@ -85,10 +80,11 @@
 <div id="userRepos">
   {#each userRepos as repo}
     <div class="repo">
-      <p>{repo.name}</p>
+      {repo.homepage} {repo.url}
+      <a href={repo.html_url}>{repo.full_name}</a>
       {repo.description} 🍴 {repo.forks_count} ⭐ {repo.stargazers_count} 👀 {repo.watchers_count}
       {repo.visibility} {repo.private ? '🔐' : '🔓'}
-      {formatBytes(repo.size * 1024)}
+      {formatBytes(repo.size * 1024)} {repo.license}
     </div>
   {/each}
 </div>

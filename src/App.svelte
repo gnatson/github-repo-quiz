@@ -1,7 +1,7 @@
 <script>
   let user = 'gnatson'
 
-  let userRepos = []
+  let userRepos = {}
   let limitRepos = 3
 
   const getUser = () => {
@@ -24,7 +24,7 @@
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log(repoFullName, data)
+        userRepos[repoFullName].languages = data
       })
   }
 
@@ -35,18 +35,12 @@
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        userRepos = data
-
-        console.clear()
-
+        userRepos = {}
         // todo: sort out repos without code languages === {}
         data.forEach((repo) => {
-          console.log(repo.description)
-          console.log(repo.url)
+          userRepos[repo.full_name] = repo
           getRepoCodeLanguages(repo.full_name, repo.languages_url)
         })
-
-        // console.log(d.topics)
       })
   }
 
@@ -79,13 +73,15 @@
 <input type="range" min={0} max={10} bind:value={limitRepos} />
 
 <div id="userRepos">
-  {#each userRepos as repo}
+  {#each Object.keys(userRepos) as repo}
     <div class="repo">
-      {repo.homepage} {repo.url}
-      <a href={repo.html_url}>{repo.full_name}</a>
-      {repo.description} 🍴 {repo.forks_count} ⭐ {repo.stargazers_count} 👀 {repo.watchers_count}
-      {repo.visibility} {repo.private ? '🔐' : '🔓'}
-      {formatBytes(repo.size * 1024)} {repo.license}
+      {userRepos[repo].homepage} {userRepos[repo].url}
+      <a href={userRepos[repo].html_url}>{userRepos[repo].full_name}</a>
+      {userRepos[repo].description} 🍴 {userRepos[repo].forks_count} ⭐ {userRepos[repo].stargazers_count}
+      👀 {userRepos[repo].watchers_count} {userRepos[repo].visibility}
+      {userRepos[repo].private ? '🔐' : '🔓'}
+      {formatBytes(userRepos[repo].size * 1024)} 📝{userRepos[repo].license ? userRepos[repo].license.name : ''}
+      {JSON.stringify(userRepos[repo].languages)}
     </div>
   {/each}
 </div>

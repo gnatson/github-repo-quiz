@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte'
-  import { current_component } from 'svelte/internal'
 
   let user = 'freecodecamp'
   let userData = null
@@ -185,6 +184,7 @@
           ⭐ Repo has any stars? {curRepo.stargazers_count > 0 ? 'Yes' : 'No'}
           <b>{curRepo.stargazers_count}</b>
         </p>
+        <p>👨‍💻 Does repo contains any programming languages?</p>
         {#if curRepo.languages}{JSON.stringify(curRepo.languages)}{/if}
         <p />
       </div>

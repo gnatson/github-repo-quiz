@@ -19,12 +19,12 @@
       })
   }
 
-  const getRepoCodeLanguages = (repoLanguagesUrl) => {
+  const getRepoCodeLanguages = (repoFullName, repoLanguagesUrl) => {
     const url = repoLanguagesUrl
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        console.log(repoFullName, data)
       })
   }
 
@@ -39,10 +39,11 @@
 
         console.clear()
 
+        // todo: sort out repos without code languages === {}
         data.forEach((repo) => {
           console.log(repo.description)
           console.log(repo.url)
-          getRepoCodeLanguages(repo.languages_url)
+          getRepoCodeLanguages(repo.full_name, repo.languages_url)
         })
 
         // console.log(d.topics)

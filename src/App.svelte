@@ -19,6 +19,18 @@
       })
   }
 
+  const getRepoCodeLanguages = repoUrl => {
+    // const user = 'vuejs'
+    // const repo = 'core'
+    // const url = `https://api.github.com/repos/${user}/${repo}/languages`
+    const url = repoUrl + '/languages'
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+      })
+  }
+
   const getUserRepos = () => {
     const user = 'gnatson'
     const limit = limitRepos
@@ -32,6 +44,8 @@
 
         data.forEach((repo) => {
           console.log(repo.description)
+          console.log(repo.url)
+          getRepoCodeLanguages(repo.url)
         })
 
         // let d = data[1]

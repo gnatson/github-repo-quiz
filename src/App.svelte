@@ -19,10 +19,7 @@
       })
   }
 
-  const getRepoCodeLanguages = repoUrl => {
-    // const user = 'vuejs'
-    // const repo = 'core'
-    // const url = `https://api.github.com/repos/${user}/${repo}/languages`
+  const getRepoCodeLanguages = (repoUrl) => {
     const url = repoUrl + '/languages'
     fetch(url)
       .then((response) => response.json())

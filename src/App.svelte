@@ -2,6 +2,8 @@
   let user = 'gnatson'
   let userData = null
 
+  // filter out repos without: description
+  // filter out repos without: code languages
   let userRepos = null
   let limitRepos = 3
 
@@ -61,9 +63,17 @@
     const key = Object.keys(userRepos)[1]
     const repoData = userRepos[key]
 
-    console.log('⭐ Repo has any stars?', repoData.stargazers_count > 0 ? 'Yes' : 'No')
-    
-    console.log('💪 Repo is heavier than 1MB?', repoData.size > 1024 ? 'Yes' : 'No');
+    console.log(
+      '⭐ Repo has any stars?',
+      repoData.stargazers_count > 0 ? 'Yes' : 'No',
+    )
+
+    console.log(
+      '💪 Repo is heavier than 1MB?',
+      repoData.size > 1024 ? 'Yes' : 'No',
+    )
+
+    console.log(repoData.languages)
   }
 </script>
 
@@ -116,6 +126,4 @@
   </div>
 {/if}
 
-<div id="quiz">
-    
-</div>
+<div id="quiz" />

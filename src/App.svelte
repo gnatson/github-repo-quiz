@@ -158,45 +158,46 @@
   </div>
 {/if} -->
 
-<div id="quiz">
-  <div id="user">
-    {#if userData}
-      <img src={userData.avatar_url} alt={userData.name} />
-      {userData.name}
+<Swipe>
+  <div id="quiz">
+    <div id="user">
+      {#if userData}
+        <img src={userData.avatar_url} alt={userData.name} />
+        {userData.name}
+      {/if}
+    </div>
+    {#if curRepo}
+      <div class="repo">
+        <div class="question">
+          💪 Repo
+          <b>{curRepo ? curRepo.full_name : ''}</b>
+          is heavier than 1MB?
+        </div>
+        <div class="answer">
+          <button on:click={answerYes}>yes</button>
+          <button on:click={answerNo}>no</button>
+        </div>
+        <div class="correct answer">
+          <p>
+            💪 Repo is heavier than 1MB? {curRepo.size > 1024 ? 'Yes' : 'No'}
+            <b>({formatBytes(curRepo.size * 1024)})</b>
+          </p>
+          <p>
+            ⭐ Repo has any stars? {curRepo.stargazers_count > 0 ? 'Yes' : 'No'}
+            <b>{curRepo.stargazers_count}</b>
+          </p>
+          <p>👨‍💻 Does repo contains any programming languages?</p>
+          {#if curRepo.languages}{JSON.stringify(curRepo.languages)}{/if}
+          <p />
+        </div>
+      </div>
+    {/if}
+
+    <p>score: {score}</p>
+
+    {#if userRepos}
+      <p>{curRepoKeyID + 1}/{Object.keys(userRepos).length}</p>
     {/if}
   </div>
-  {#if curRepo}
-    <div class="repo">
-      <div class="question">
-        💪 Repo
-        <b>{curRepo ? curRepo.full_name : ''}</b>
-        is heavier than 1MB?
-      </div>
-      <div class="answer">
-        <button on:click={answerYes}>yes</button>
-        <button on:click={answerNo}>no</button>
-      </div>
-      <div class="correct answer">
-        <p>
-          💪 Repo is heavier than 1MB? {curRepo.size > 1024 ? 'Yes' : 'No'}
-          <b>({formatBytes(curRepo.size * 1024)})</b>
-        </p>
-        <p>
-          ⭐ Repo has any stars? {curRepo.stargazers_count > 0 ? 'Yes' : 'No'}
-          <b>{curRepo.stargazers_count}</b>
-        </p>
-        <p>👨‍💻 Does repo contains any programming languages?</p>
-        {#if curRepo.languages}{JSON.stringify(curRepo.languages)}{/if}
-        <p />
-      </div>
-    </div>
-  {/if}
 
-  <p>score: {score}</p>
-
-  {#if userRepos}
-    <p>{curRepoKeyID + 1}/{Object.keys(userRepos).length}</p>
-  {/if}
-</div>
-
-<Swipe/>
+</Swipe>

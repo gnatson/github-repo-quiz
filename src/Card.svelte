@@ -24,8 +24,8 @@
   }
 
   function handlePanEnd(event) {
-    coords.stiffness = 0.2
-    coords.damping = 0.4
+    coords.stiffness = 0.15
+    coords.damping = 0.5
     coords.set({ x: 0, y: 0 })
   }
 </script>

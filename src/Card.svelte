@@ -19,6 +19,8 @@
       x: $coords.x + event.detail.dx,
       y: $coords.y + event.detail.dy,
     }))
+
+    console.log(event.detail.dx)
   }
 
   function handlePanEnd(event) {

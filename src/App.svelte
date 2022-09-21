@@ -110,10 +110,6 @@
 </script>
 
 <style>
-  #user {
-    outline: 1px solid black;
-  }
-
   #user > img {
     width: 100px;
     border-radius: 100%;
@@ -187,7 +183,10 @@
             <b>{curRepo.stargazers_count}</b>
           </p>
           <p>👨‍💻 Does repo contains any programming languages?</p>
-          {#if curRepo.languages}{Object.keys(curRepo.languages).join()}{/if}
+          {#if curRepo.languages}
+            {Object.keys(curRepo.languages).length > 0 ? 'Yes' : 'No'}
+            <b>{Object.keys(curRepo.languages).join()}</b>
+          {/if}
           <p />
         </div>
       </div>

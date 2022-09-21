@@ -60,12 +60,6 @@
     -webkit-backdrop-filter: blur(11px);
     border-radius: 10px;
   }
-
-  @keyframes cardIdle {
-    to {
-      transform: rotate(5deg);
-    }
-  }
 </style>
 
 <div

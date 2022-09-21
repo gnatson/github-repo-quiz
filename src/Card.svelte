@@ -29,21 +29,29 @@
 </script>
 
 <style>
-  .box {
-    --width: 200px;
-    --height: 300px;
+  .card {
+    --width: 40vw;
+    --height: 60vh;
+
     position: absolute;
-    width: var(--width);
-    height: var(--height);
     left: calc(50% - var(--width) / 2);
     top: calc(50% - var(--height) / 2);
+
+    width: var(--width);
+    height: var(--height);
+
     border-radius: 4px;
     background-color: burlywood;
+
+    padding: 2rem;
+    overflow: hidden;
+
+    user-select: none;
   }
 </style>
 
 <div
-  class="box"
+  class="card"
   use:swipe
   on:panstart={handlePanStart}
   on:panmove={handlePanMove}

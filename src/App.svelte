@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte'
-  import Swipe from './Swipe.svelte'
+  import Card from './Card.svelte'
 
   let user = 'freecodecamp'
   let userData = null
@@ -158,7 +158,7 @@
   </div>
 {/if} -->
 
-<Swipe>
+<Card>
   <div id="quiz">
     <div id="user">
       {#if userData}
@@ -187,7 +187,7 @@
             <b>{curRepo.stargazers_count}</b>
           </p>
           <p>👨‍💻 Does repo contains any programming languages?</p>
-          {#if curRepo.languages}{JSON.stringify(curRepo.languages)}{/if}
+          {#if curRepo.languages}{Object.keys(curRepo.languages).join()}{/if}
           <p />
         </div>
       </div>
@@ -200,4 +200,4 @@
     {/if}
   </div>
 
-</Swipe>
+</Card>

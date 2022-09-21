@@ -113,6 +113,19 @@
   #user > img {
     width: 100px;
     border-radius: 100%;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    /* transform: translateX(10px); */
+    z-index: 4;
+
+    padding: 1rem;
+
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+
+    user-select: none;
+    pointer-events: none;
   }
 
   #userRepos {
@@ -159,7 +172,7 @@
     <div id="user">
       {#if userData}
         <img src={userData.avatar_url} alt={userData.name} />
-        {userData.name}
+        <!-- {userData.name} -->
       {/if}
     </div>
     {#if curRepo}

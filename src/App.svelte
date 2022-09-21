@@ -15,9 +15,45 @@
 
   let curRepo = null
 
+  let selectedQuestion = 0
+  let questions = {}
+  let question = null
+  let answer = null
+
+  function getRandomInt(min, max) {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min) + min)
+  }
+
   $: {
     if (userRepos) {
       curRepo = userRepos[Object.keys(userRepos)[curRepoKeyID]]
+    }
+
+    if (curRepo) {
+      questions.size = {
+        html: `💪 <b>${curRepo.full_name}</b> is heavier than 1MB?`,
+        value: formatBytes(curRepo.size * 1024),
+        answer: curRepo.size > 1024 ? 'Yes' : 'No',
+      }
+
+      questions.stars = {
+        html: `⭐ <b>${curRepo.full_name}</b> has any stars?`,
+        value: curRepo.stargazers_count,
+        answer: curRepo.stargazers_count > 0 ? 'Yes' : 'No',
+      }
+
+      questions.languages = {
+        html: `👨‍💻 Does <b>${curRepo.full_name}</b> contains any programming languages?`,
+        // value: Object.keys(curRepo.languages).join(),
+        // answer: Object.keys(curRepo.languages).length > 0 ? 'Yes' : 'No',
+        answer: 'erorr :)',
+      }
+
+      question = questions[Object.keys(questions)[selectedQuestion]].html
+
+      answer = questions[Object.keys(questions)[selectedQuestion]].answer
     }
   }
 
@@ -25,6 +61,8 @@
     if (curRepoKeyID < Object.keys(userRepos).length - 1) {
       curRepoKeyID++
     }
+
+    selectedQuestion = getRandomInt(0, 3)
   }
   const answerYes = () => {
     nextQuestion()
@@ -110,7 +148,6 @@
 </script>
 
 <style>
-  
   #user > img {
     width: 100px;
     border-radius: 100%;
@@ -178,39 +215,24 @@
     </div>
     {#if curRepo}
       <div class="repo">
-        <div class="question">
-          💪 Repo
-          <b>{curRepo ? curRepo.full_name : ''}</b>
-          is heavier than 1MB?
-        </div>
-        <div class="answer">
-          <button on:click={answerYes}>yes</button>
-          <button on:click={answerNo}>no</button>
-        </div>
-        <div class="correct answer">
-          <p>
-            💪 Repo is heavier than 1MB? {curRepo.size > 1024 ? 'Yes' : 'No'}
-            <b>({formatBytes(curRepo.size * 1024)})</b>
-          </p>
-          <p>
-            ⭐ Repo has any stars? {curRepo.stargazers_count > 0 ? 'Yes' : 'No'}
-            <b>{curRepo.stargazers_count}</b>
-          </p>
-          <p>👨‍💻 Does repo contains any programming languages?</p>
-          {#if curRepo.languages}
-            {Object.keys(curRepo.languages).length > 0 ? 'Yes' : 'No'}
-            <b>{Object.keys(curRepo.languages).join()}</b>
-          {/if}
-          <p />
-        </div>
+        {#if question}
+          <div class="question">
+            {@html question}
+          </div>
+        {/if}
+
+        {#if answer}
+          <div class="answer">({answer})</div>
+        {/if}
+
+        <button on:click={answerYes}>yes</button>
+        <button on:click={answerNo}>no</button>
       </div>
     {/if}
 
-    <p>score: {score}</p>
+    <p>Score: {score}</p>
 
-    {#if userRepos}
-      <p>{curRepoKeyID + 1}/{Object.keys(userRepos).length}</p>
-    {/if}
+    {#if userRepos}Repo: {curRepoKeyID + 1}/{Object.keys(userRepos).length}{/if}
   </div>
 
 </Card>

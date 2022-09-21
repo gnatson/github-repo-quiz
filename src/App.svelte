@@ -174,6 +174,14 @@
   #userRepos > .repo {
     outline: 1px solid black;
   }
+
+  #warning {
+    color: white;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+  }
 </style>
 
 <!-- <button on:click={getUserRepos}>get user repos</button>
@@ -236,3 +244,8 @@
   </div>
 
 </Card>
+
+<div id="warning">
+  <b>Warning:</b>
+  App in development 🧙‍♂️
+</div>

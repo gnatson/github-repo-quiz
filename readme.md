@@ -1,4 +1,4 @@
-# 💙 GithubUserSwipe
+# 🧙‍♂️ Github Repo Quiz
 
 ## game: facts & guessing
 

@@ -110,6 +110,7 @@
 </script>
 
 <style>
+  
   #user > img {
     width: 100px;
     border-radius: 100%;

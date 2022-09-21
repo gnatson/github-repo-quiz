@@ -247,5 +247,7 @@
 
 <div id="warning">
   <b>Warning:</b>
-  App in development 🧙‍♂️
+  <a href="https://github.com/gnatson/github-repo-quiz">
+    App in development 🧙‍♂️
+  </a>
 </div>
